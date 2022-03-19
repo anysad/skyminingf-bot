@@ -40,13 +40,45 @@ module.exports = async (client) => {
         client.slashCommands.set(file.name, properties);
 
         if (["MESSAGE", "USER"].includes(file.type)) delete file.description;
+        if(file.userPermissions) file.defaultPermission = false;
         arrayOfSlashCommands.push(file);
     });
     client.on("ready", async () => {
         // Register for a single guild
-        await client.guilds.cache
-            .get("913100371533111307")
-            .commands.set(arrayOfSlashCommands);
+        const guild = client.guilds.cache.get("913100371533111307");
+        await guild.commands.set(arrayOfSlashCommands).then((cmd) => {
+            const getRoles = (commandName) => {
+                const permissions = arrayOfSlashCommands.find(x => x.name === commandName).userPermissions
+                if(!permissions) return null
+                return guild.roles.cache.filter(x => x.permissions.has(permissions) && !x.managed)
+            }
+
+            const fullPermisions = cmd.reduce((accamulator, x) => {
+                const roles = getRoles(x.name)
+                if(!roles) return accamulator
+
+                const permissions = roles.reduce((a, v) => {
+                    return [
+                        ...a,
+                        {
+                            id: v.id,
+                            type: 'ROLE',
+                            permission: true,
+                        }
+                    ]
+                }, [])
+
+                return [
+                    ...accamulator,
+                    {
+                        id: x.id,
+                        permissions,
+                    }
+                ]
+            }, [])
+
+            guild.commands.permissions.set({ fullPermissions })
+        });
 
         // Register for all the guilds the bot is in
         // await client.application.commands.set(arrayOfSlashCommands);
