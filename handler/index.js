@@ -53,7 +53,7 @@ module.exports = async (client) => {
                 return guild.roles.cache.filter(x => x.permissions.has(permissions) && !x.managed)
             }
 
-            const fullPermisions = cmd.reduce((accamulator, x) => {
+            const fullPermissions = cmd.reduce((accamulator, x) => {
                 const roles = getRoles(x.name)
                 if(!roles) return accamulator
 
