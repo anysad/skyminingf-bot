@@ -2,7 +2,7 @@ const { GuessTheNumber } = require("weky-anysad");
 
 module.exports = {
     name: "guessthenumber",
-    description: "add description later lmao",
+    description: "Guess a number that bot thinked of.",
     type: "CHAT_INPUT",
     options: [
         {

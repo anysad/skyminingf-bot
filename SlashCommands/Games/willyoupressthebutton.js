@@ -2,7 +2,7 @@ const { WillYouPressTheButton } = require("weky-anysad");
 
 module.exports = {
     name: "willyoupressthebutton",
-    description: "add description later lmao",
+    description: "One statement is good, the other one is bad. Choose whether you press the button. ",
     type: "CHAT_INPUT",
     run: async (client, interaction) => {
         await WillYouPressTheButton({

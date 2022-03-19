@@ -2,7 +2,7 @@ const { ChaosWords } = require("weky-anysad");
 
 module.exports = {
     name: "chaoswords",
-    description: "add description later lmao",
+    description: "Find all of the words in the sentence.",
     type: "CHAT_INPUT",
     run: async (client, interaction) => {
         await ChaosWords({
