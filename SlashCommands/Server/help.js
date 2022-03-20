@@ -5,6 +5,12 @@ module.exports = {
     name: "help",
     description: "Sends every command under a specific category.",
     run: async (client, interaction) => {
+        const emojis = {
+            games: '🎲',
+            music: '🎶',
+            server: '💻',
+        }
+
         const directories = [
             ...new Set(client.slashCommands.map(cmd => cmd.directory))
         ];
@@ -39,7 +45,8 @@ module.exports = {
                             return {
                                 label: cmd.directory,
                                 value: cmd.directory.toLowerCase(),
-                                description: `Commands from ${cmd.directory} category.`
+                                description: `Commands from ${cmd.directory} category.`,
+                                emoji: emojis[cmd.directory.toLowerCase()] || null
                             }
                         })
                     )
