@@ -1,6 +1,7 @@
 const akinator = require('discord.js-akinator')
+const { Command } = require('reconlx')
 
-module.exports = {
+module.exports = new Command({
     name: "akinator",
     description: "Think about a thing and Akinator will try to guess it.",
     type: "CHAT_INPUT",
@@ -32,7 +33,7 @@ module.exports = {
             ],
         }
     ],
-    run: async (client, interaction) => {
+    run: async ({ client, interaction }) => {
         akinator(interaction, {
             language: "en",
             childMode: interaction.options.get("childmode").value,
@@ -41,4 +42,4 @@ module.exports = {
         })
         interaction.followUp({ content: 'Starting!' })
     },
-};
+});

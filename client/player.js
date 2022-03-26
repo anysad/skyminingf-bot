@@ -6,6 +6,7 @@ const player = new Player(client, {
         quality: "highestaudio",
         highWaterMark: 1 << 25,
     },
+    initialVolume: 50
 });
 
 module.exports = player;

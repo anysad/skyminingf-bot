@@ -1,9 +1,10 @@
+const { Command } = require("reconlx");
 const player = require("../../client/player");
 
-module.exports = {
+module.exports = new Command({
     name: "queue",
     description: "Displays current queue of the server.",
-    run: async (client, interaction) => {
+    run: async ({ client, interaction }) => {
         const queue = player.getQueue(interaction.guildId);
         if (!queue || !queue.playing) return interaction.followUp({ content: "❌ | No songs are currently playing", ephemeral: true });
 
@@ -40,10 +41,10 @@ module.exports = {
                     ],
                     footer: {
                         text: `Requested by ${interaction.member.user.tag}`,
-                        icon_url: interaction.user.displayAvatarURL({dynamic: true})
+                        icon_url: interaction.user.displayAvatarURL({ dynamic: true })
                     }
                 },
             ],
         });
     },
-};
+});

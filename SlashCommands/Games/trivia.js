@@ -1,6 +1,7 @@
 const { Trivia } = require("weky-anysad");
+const { Command } = require('reconlx')
 
-module.exports = {
+module.exports = new Command({
     name: "trivia",
     description: "Answer on random question asked by a bot.",
     type: "CHAT_INPUT",
@@ -26,8 +27,8 @@ module.exports = {
             ],
         }
     ],
-    run: async (client, interaction) => {
-        await Trivia({
+    run: async ({ client, interaction }) => {
+        Trivia({
             message: interaction,
             embed: {
                 title: 'Trivia',
@@ -50,4 +51,4 @@ module.exports = {
             returnWinner: false
         })
     },
-};
+});

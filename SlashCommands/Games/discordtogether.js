@@ -1,9 +1,10 @@
 const { DiscordTogether } = require('discord-together');
-const { MessageEmbed } = require('discord.js')
+const { MessageEmbed } = require('discord.js');
+const { Command } = require('reconlx');
 const client = require('../..');
 client.discordTogether = new DiscordTogether(client);
 
-module.exports = {
+module.exports = new Command({
     name: "discordtogether",
     description: "Choose an action to do with your friends. (More than 10 games available.)",
     options: [
@@ -72,7 +73,7 @@ module.exports = {
             ],
         }
     ],
-    run: async (client, interaction) => {
+    run: async ({ client, interaction }) => {
         if (!interaction.member.voice.channelId) return await interaction.followUp({ content: "❌ | You are not in a voice channel.", ephemeral: true });
         client.discordTogether.createTogetherCode(interaction.member.voice.channelId, interaction.options.get("gametype").value).then(async invite => {
             const embed = new MessageEmbed()
@@ -83,4 +84,4 @@ module.exports = {
             return interaction.followUp({ embeds: [embed] })
         })
     },
-};
+});

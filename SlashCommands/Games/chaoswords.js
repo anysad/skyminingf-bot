@@ -1,11 +1,12 @@
+const { Command } = require("reconlx");
 const { ChaosWords } = require("weky-anysad");
 
-module.exports = {
+module.exports = new Command({
     name: "chaoswords",
     description: "Find all of the words in the sentence.",
     type: "CHAT_INPUT",
-    run: async (client, interaction) => {
-        await ChaosWords({
+    run: async ({ client, interaction }) => {
+        ChaosWords({
             message: interaction,
             embed: {
                 title: 'ChaosWords',
@@ -29,4 +30,4 @@ module.exports = {
             othersMessage: 'Only <@{{author}}> can use the buttons!'
         })
     },
-};
+});

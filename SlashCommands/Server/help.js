@@ -1,10 +1,10 @@
-const { MessageEmbed, MessageActionRow, MessageSelectMenu, Message } = require("discord.js");
-const { statusFE } = require("minecraft-server-util");
+const { MessageEmbed, MessageActionRow, MessageSelectMenu } = require("discord.js");
+const { Command } = require('reconlx')
 
-module.exports = {
+module.exports = new Command({
     name: "help",
     description: "Sends every command under a specific category.",
-    run: async (client, interaction) => {
+    run: async ({ client, interaction }) => {
         const emojis = {
             games: '🎲',
             music: '🎶',
@@ -96,4 +96,4 @@ module.exports = {
         })
 
     },
-};
+});

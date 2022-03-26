@@ -1,6 +1,7 @@
+const { Command } = require("reconlx");
 const { GuessTheNumber } = require("weky-anysad");
 
-module.exports = {
+module.exports = new Command({
     name: "guessthenumber",
     description: "Guess a number that bot thinked of.",
     type: "CHAT_INPUT",
@@ -12,8 +13,8 @@ module.exports = {
             required: true,
         }
     ],
-    run: async (client, interaction) => {
-        await GuessTheNumber({
+    run: async ({ client, interaction }) => {
+        GuessTheNumber({
             message: interaction,
             embed: {
                 title: 'Guess The Number',
@@ -43,4 +44,4 @@ module.exports = {
             returnWinner: false
         })
     },
-};
+});

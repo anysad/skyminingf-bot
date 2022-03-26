@@ -1,7 +1,8 @@
 const player = require("../../client/player");
 const { QueueRepeatMode } = require('discord-player');
+const { Command } = require("reconlx");
 
-module.exports = {
+module.exports = new Command({
     name: "loop",
     description: "Loops the currect playing song.",
     options: [
@@ -30,12 +31,12 @@ module.exports = {
             ]
         }
     ],
-    run: async (client, interaction) => {
+    run: async ({ client, interaction }) => {
         const queue = player.getQueue(interaction.guildId);
-        if (!queue || !queue.playing) return void interaction.followUp({ content: "❌ | No music is being played." , ephemeral: true });
+        if (!queue || !queue.playing) return interaction.followUp({ content: "❌ | No music is being played." , ephemeral: true });
         const loopMode = interaction.options.get("mode").value;
         const success = queue.setRepeatMode(loopMode);
         const mode = loopMode === QueueRepeatMode.TRACK ? "🔂" : loopMode === QueueRepeatMode.QUEUE ? "🔁" : "▶";
-        return void interaction.followUp({ content: success ? `${mode} | Updated loop mode!` : "❌ | Could not update loop mode!" });
+        return interaction.followUp({ content: success ? `${mode} | Updated loop mode!` : "❌ | Could not update loop mode!" });
     },
-};
+});

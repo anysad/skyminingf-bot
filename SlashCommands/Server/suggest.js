@@ -1,6 +1,7 @@
 const { MessageEmbed } = require('discord.js');
+const { Command } = require('reconlx');
 
-module.exports = {
+module.exports = new Command({
     name: "suggest",
     description: "Suggest what you wanna be on the server.",
     type: "CHAT_INPUT",
@@ -12,7 +13,7 @@ module.exports = {
             required: true,
         }
     ],
-    run: async (client, interaction) => {
+    run: async ({ client, interaction }) => {
         const response = new MessageEmbed()
             .setTitle('RANDOM')
             .setTitle('New Suggestion!')
@@ -22,4 +23,4 @@ module.exports = {
         message.react('👍')
         message.react('👎')
     },
-};
+});

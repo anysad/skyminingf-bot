@@ -1,10 +1,11 @@
 const player = require("../../client/player");
 const { MessageEmbed } = require('discord.js');
+const { Command } = require("reconlx");
 
-module.exports = {
+module.exports = new Command({
     name: "now-playing",
     description: "Shows information about the current song.",
-    run: async (client, interaction) => {
+    run: async ({ client, interaction }) => {
         const queue = player.getQueue(interaction.guildId);
         if (!queue || !queue.playing) return interaction.followUp({ content: "❌ | No music is currently being played.", ephemeral: true });
 
@@ -20,4 +21,4 @@ module.exports = {
 
         return interaction.followUp({ embeds: [embed] });
     },
-};
+});

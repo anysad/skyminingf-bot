@@ -1,11 +1,12 @@
+const { Command } = require("reconlx");
 const { Snake } = require("weky-anysad");
 
-module.exports = {
+module.exports = new Command({
     name: "snake",
     description: "Play snake in your discord server.",
     type: "CHAT_INPUT",
-    run: async (client, interaction) => {
-        await Snake({
+    run: async ({ client, interaction }) => {
+        Snake({
             message: interaction,
             embed: {
                 title: 'Snake',
@@ -27,4 +28,4 @@ module.exports = {
             buttonText: 'Cancel'
         })
     },
-};
+});

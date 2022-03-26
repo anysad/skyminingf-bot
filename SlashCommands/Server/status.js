@@ -2,15 +2,15 @@
 const { MessageEmbed } = require('discord.js')
 const util = require('minecraft-server-util');
 const options = {
-    timeout: 1000 * 5, // timeout in milliseconds
-    enableSRV: true // SRV record lookup
+    enableSRV: true
 };
-const request = require('prequest')
+const request = require('prequest');
+const { Command } = require('reconlx');
 
-module.exports = {
+module.exports = new Command({
     name: 'status',
     description: 'Checks current server status.',
-    run: async (client, interaction) => {
+    run: async ({ client, interaction }) => {
         var things = (await util.status('SkyMiningF.minehut.gg', 25565, options));
         var anotherthings = await request('https://api.minehut.com/server/skyminingf?byName=true')
         const answer = new MessageEmbed()
@@ -27,4 +27,4 @@ module.exports = {
             .setFooter({ text: `Requested by ${interaction.member.user.tag}`, iconURL: interaction.user.displayAvatarURL({dynamic: true}) })
         return await interaction.followUp({ embeds: [answer] });
     }
-}
+})
